@@ -11,7 +11,7 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<title>Mini App</title>
+<title>연송상회</title>
 <style>
 /* Tokens follow the Ouroboros console (github.com/Q00/ouroboros): neutral grays only, color only for status and focus. */
 :root{--font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,Roboto,sans-serif;
@@ -124,8 +124,8 @@ textarea::placeholder{color:var(--text-mute)}
 <body>
 <div class="app">
   <header>
-    <div class="avatar" id="av">A</div>
-    <div class="who"><b id="nm">Agent</b><div class="status" id="st"><span class="dot"></span><span id="stt">연결하는 중</span></div></div>
+    <div class="avatar" id="av">연</div>
+    <div class="who"><b id="nm">연송상회</b><div class="status" id="st"><span class="dot"></span><span id="stt">연결하는 중</span></div></div>
     <button class="btn" id="act" type="button">활동</button>
   </header>
   <div id="scroll"><div id="log"></div></div>
@@ -152,11 +152,37 @@ textarea::placeholder{color:var(--text-mute)}
   <div class="sec">최근 움직임</div><div id="moves"></div>
   <div class="sec">에이전트가 만든 도구</div><div id="forged"></div>
   <div class="sec">이 앱이 준 도구</div><div id="apptools"></div>
+  <div class="sec">주인에게 남긴 메모</div><div id="notes" class="list"><div class="none">아직 없음</div></div>
   <div class="credit">Built with the agent market mini app kit, inspired by
     <a href="https://github.com/Q00/meshkit" target="_blank" rel="noopener">MeshKit</a> and
     <a href="https://github.com/Q00/ouroboros" target="_blank" rel="noopener">Ouroboros</a></div>
 </div></div>
 <script src="/miniapp.js"></script>
+<script>
+// The one tool this page gives the agent without forging: a note to the shop owner (me), kept in this browser.
+// The agent uses it for things a person should know: a big purchase, a customer it could not serve, a tool that failed.
+(function () {
+  var KEY = "owner-notes", box = document.getElementById("notes");
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } }
+  function render() {
+    var notes = load().slice(-20).reverse();
+    box.innerHTML = notes.length ? notes.map(function (n) {
+      return "<div>" + n.text.replace(/[<>&]/g, function (c) { return {"<": "&lt;", ">": "&gt;", "&": "&amp;"}[c]; }) +
+             "<small>" + new Date(n.ts).toLocaleString("ko-KR") + "</small></div>"; }).join("") : '<div class="none">아직 없음</div>';
+  }
+  if (window.miniapp && miniapp.offer) {
+    miniapp.offer("owner_note", "가게 주인에게 짧은 메모를 남긴다. args: {text}. 큰 매입, 못 판 손님, 실패한 도구처럼 사람이 알아야 할 일에만 쓴다.",
+      function (args) {
+        var text = String((args && args.text) || "").slice(0, 300);
+        if (!text) return { ok: false, error: "text is empty" };
+        var notes = load(); notes.push({ text: text, ts: Date.now() });
+        try { localStorage.setItem(KEY, JSON.stringify(notes.slice(-100))); } catch (e) {}
+        render(); return { ok: true, kept: notes.length };
+      });
+  }
+  render();
+})();
+</script>
 <script>
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
