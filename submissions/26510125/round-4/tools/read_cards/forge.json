@@ -1,0 +1,11 @@
+{
+ "tool": "read_cards",
+ "version": 1,
+ "forged_at": 1795729067,
+ "kit": "v5.2",
+ "sha256": {
+  "permission.yml": "cf8067090e245fee7ad33ea5730cb4b49797aec2a805809ebd6016556439c502",
+  "logic.py": "7c9fd41ebf9765406faba6cf0094c9531a1f1893857b2066023f3738ce472cf1",
+  "test.py": "3123a6f364c697506b3a67007249f4cd035c4d3fef381392e9ffa51113cf3b93"
+ }
+}

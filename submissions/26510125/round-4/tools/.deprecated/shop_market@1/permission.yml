@@ -1,0 +1,11 @@
+name: shop_market
+description: 상점 시장 API를 호출합니다. args: op=catalog|demand|restock|prices|inventory|buy, sku와 qty는 buy에 필요
+permission:
+  network: [market.ourolabs.ai]
+  identity: [shop]
+  wallet: [pay]
+  pay_limit: 1000000
+  timeout: 60
+logic: logic.py
+test: test.py
+version: 1

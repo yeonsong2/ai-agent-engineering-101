@@ -1,0 +1,11 @@
+{
+ "tool": "shop_market",
+ "version": 2,
+ "forged_at": 1795729141,
+ "kit": "v5.2",
+ "sha256": {
+  "permission.yml": "999ba66318c4475da5c230d43c4e7b0894f0a65a0000ec6848e9acdc436dd886",
+  "logic.py": "b8367618f0effdb0e131332a97dfae33d29940b8c2989f4dc79a48742680c487",
+  "test.py": "a236cd91cdd73f3fba9cb56c32f395156d3f610b66aea1d83eae330dc95f0b1d"
+ }
+}

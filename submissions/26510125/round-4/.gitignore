@@ -1,0 +1,6 @@
+*.key
+.market/
+.kit/
+meshkit.json
+kit.pid
+logs/kit.out

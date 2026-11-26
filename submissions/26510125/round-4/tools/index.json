@@ -1,0 +1,12 @@
+{
+ "read_cards": {
+  "uses": 2,
+  "fails": 0,
+  "last": 1795729088
+ },
+ "shop_market": {
+  "uses": 6,
+  "fails": 0,
+  "last": 1795729175
+ }
+}

@@ -1,0 +1,8 @@
+name: read_cards
+description: 지정한 URL들의 Agent Card를 조회합니다. args: urls
+permission:
+  network: [market.ourolabs.ai]
+  timeout: 30
+logic: logic.py
+test: test.py
+version: 1
